@@ -1,208 +1,100 @@
 <?xml version="1.0"?>
-<!-- See http://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
-<ruleset name="Drupal">
- <description>Drupal coding standard</description>
+<ruleset name="PHP_CodeSniffer">
+ <description>The coding standard for PHP_CodeSniffer itself.</description>
 
- <rule ref="Drupal.Commenting.FileComment">
-  <!-- Do not run this sniff on txt files. -->
-  <exclude-pattern>*.txt</exclude-pattern>
- </rule>
- <rule ref="Drupal.Commenting.FileComment.SpacingAfter">
-  <!-- Do not run this sniff on template files. -->
-  <exclude-pattern>*.tpl.php</exclude-pattern>
- </rule>
- <rule ref="Drupal.ControlStructures.ControlSignature">
-  <!-- Do not run this sniff on template files. -->
-  <exclude-pattern>*.tpl.php</exclude-pattern>
- </rule>
- <rule ref="Drupal.ControlStructures.ElseNewline">
-  <!-- Do not run this sniff on template files. -->
-  <exclude-pattern>*.tpl.php</exclude-pattern>
- </rule>
- <rule ref="Drupal.Formatting.DisallowCloseTag">
-  <!-- Do not run this sniff on template files. -->
-  <exclude-pattern>*.tpl.php</exclude-pattern>
- </rule>
- <rule ref="Drupal.Formatting.SpaceColon">
-  <!-- Do not run this sniff on template files. -->
-  <exclude-pattern>*.tpl.php</exclude-pattern>
- </rule>
- <rule ref="Drupal.WhiteSpace.ScopeClosingBrace">
-  <!-- Do not run this sniff on template files. -->
-  <exclude-pattern>*.tpl.php</exclude-pattern>
- </rule>
- <rule ref="Drupal.WhiteSpace.ScopeIndent">
-  <!-- Do not run this sniff on template files, as the indentation might follow
-  the HTML -->
-  <exclude-pattern>*.tpl.php</exclude-pattern>
- </rule>
- 
- <rule ref="Generic.Formatting.SpaceAfterCast" />
- <rule ref="Generic.Functions.FunctionCallArgumentSpacing" />
- <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
- <rule ref="Generic.NamingConventions.ConstructorName" />
- <rule ref="Generic.NamingConventions.UpperCaseConstantName" />
- <rule ref="Generic.PHP.DisallowShortOpenTag" />
- <rule ref="Generic.PHP.UpperCaseConstant" />
- <rule ref="Generic.WhiteSpace.DisallowTabIndent" />
+ <file>autoload.php</file>
+ <file>bin</file>
+ <file>src</file>
+ <file>tests</file>
 
- <!-- Use Unix newlines -->
- <rule ref="Generic.Files.LineEndings">
+ <exclude-pattern>*/Standards/*/Tests/*.(inc|css|js)</exclude-pattern>
+
+ <arg name="basepath" value="."/>
+ <arg name="colors" />
+ <arg name="parallel" value="75" />
+ <arg value="np"/>
+
+ <!-- Don't hide tokenizer exceptions -->
+ <rule ref="Internal.Tokenizer.Exception">
+  <type>error</type>
+ </rule>
+
+ <!-- Include the whole PEAR standard -->
+ <rule ref="PEAR">
+    <exclude name="PEAR.NamingConventions.ValidFunctionName" />
+    <exclude name="PEAR.NamingConventions.ValidVariableName" />
+    <exclude name="PEAR.Commenting.ClassComment" />
+    <exclude name="PEAR.Commenting.FileComment.MissingCategoryTag" />
+    <exclude name="PEAR.Commenting.FileComment.MissingPackageTag" />
+    <exclude name="PEAR.Commenting.FileComment.MissingLinkTag" />
+    <exclude name="PEAR.Commenting.FileComment.MissingVersion" />
+ </rule>
+
+ <!-- Include some sniffs from other standards that don't conflict with PEAR -->
+ <rule ref="Squiz.Arrays.ArrayBracketSpacing" />
+ <rule ref="Squiz.Arrays.ArrayDeclaration" />
+ <rule ref="Squiz.Commenting.ClosingDeclarationComment" />
+ <rule ref="Squiz.ControlStructures.ControlSignature" />
+ <rule ref="Squiz.ControlStructures.ElseIfDeclaration" />
+ <rule ref="Squiz.Commenting.BlockComment" />
+ <rule ref="Squiz.Commenting.DocCommentAlignment" />
+ <rule ref="Squiz.Commenting.EmptyCatchComment" />
+ <rule ref="Squiz.Commenting.InlineComment" />
+ <rule ref="Squiz.Commenting.LongConditionClosingComment" />
+ <rule ref="Squiz.Commenting.PostStatementComment" />
+ <rule ref="Squiz.Commenting.VariableComment" />
+ <rule ref="Squiz.Formatting.OperatorBracket" />
+ <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing" />
+ <rule ref="Squiz.Operators.ComparisonOperatorUsage" />
+ <rule ref="Squiz.PHP.DisallowInlineIf" />
+ <rule ref="Squiz.Strings.ConcatenationSpacing" />
+ <rule ref="Squiz.WhiteSpace.ControlStructureSpacing" />
+ <rule ref="Squiz.WhiteSpace.FunctionClosingBraceSpace" />
+ <rule ref="Squiz.WhiteSpace.FunctionSpacing" />
+ <rule ref="Squiz.WhiteSpace.OperatorSpacing" />
+ <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace" />
+ <rule ref="Generic.Commenting.Todo"/>
+ <rule ref="Generic.ControlStructures.InlineControlStructure"/>
+ <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+ <rule ref="Generic.Formatting.SpaceAfterCast"/>
+ <rule ref="Generic.NamingConventions.ConstructorName"/>
+ <rule ref="Generic.PHP.DeprecatedFunctions"/>
+ <rule ref="Generic.PHP.LowerCaseKeyword"/>
+ <rule ref="Generic.Strings.UnnecessaryStringConcat"/>
+ <rule ref="PSR2.Classes.PropertyDeclaration"/>
+ <rule ref="PSR2.Methods.MethodDeclaration"/>
+ <rule ref="PSR2.Files.EndFileNewline"/>
+ <rule ref="Zend.Files.ClosingTag"/>
+
+ <!-- Check var names, but we don't want leading underscores for private vars -->
+ <rule ref="Squiz.NamingConventions.ValidVariableName" />
+ <rule ref="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore">
+  <severity>0</severity>
+ </rule>
+
+ <!-- Only one argument per line in multi-line function calls -->
+ <rule ref="PEAR.Functions.FunctionCallSignature">
   <properties>
-   <property name="eolChar" value="\n"/>
+   <property name="allowMultipleArguments" value="false"/>
   </properties>
  </rule>
 
- <rule ref="MySource.Debug.DebugCode" />
- <rule ref="PEAR.Files.IncludingFile" />
- <!-- Disable some error messages that we do not want. -->
- <rule ref="PEAR.Files.IncludingFile.UseIncludeOnce">
-  <severity>0</severity>
+ <!-- Have 12 chars padding maximum and always show as errors -->
+ <rule ref="Generic.Formatting.MultipleStatementAlignment">
+  <properties>
+   <property name="maxPadding" value="12"/>
+   <property name="error" value="true"/>
+  </properties>
  </rule>
- <rule ref="PEAR.Files.IncludingFile.UseInclude">
-  <severity>0</severity>
+
+ <!-- Private methods MUST not be prefixed with an underscore -->
+ <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+  <type>error</type>
  </rule>
- <rule ref="PEAR.Files.IncludingFile.UseRequireOnce">
-  <severity>0</severity>
+
+ <!-- Private properties MUST not be prefixed with an underscore -->
+ <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
+  <type>error</type>
  </rule>
- <rule ref="PEAR.Files.IncludingFile.UseRequire">
-  <severity>0</severity>
- </rule>
- 
- <rule ref="PEAR.Functions.FunctionCallSignature"/>
- <!-- Disable some error messages that we already cover. --> 
- <rule ref="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket">
-  <severity>0</severity>
- </rule>
- <rule ref="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket">
-  <severity>0</severity>
- </rule>
- <!-- Disable some error messages that we do not want. -->
- <rule ref="PEAR.Functions.FunctionCallSignature.Indent">
-  <severity>0</severity>
- </rule>
- <rule ref="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket">
-  <severity>0</severity>
- </rule>
- <rule ref="PEAR.Functions.FunctionCallSignature.CloseBracketLine">
-  <severity>0</severity>
- </rule>
- 
- <rule ref="PEAR.Functions.ValidDefaultValue" />
- 
- <rule ref="Squiz.Arrays.ArrayDeclaration" />
- <!-- Disable some error messages that we do not want. --> 
- <rule ref="Squiz.Arrays.ArrayDeclaration.CloseBraceNewLine">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.Arrays.ArrayDeclaration.CloseBraceNotAligned">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.Arrays.ArrayDeclaration.FirstValueNoNewline">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.Arrays.ArrayDeclaration.KeyNotAligned">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.Arrays.ArrayDeclaration.MulitLineNotAllowed">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.Arrays.ArrayDeclaration.NoComma">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.Arrays.ArrayDeclaration.NoCommaAfterLast">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.Arrays.ArrayDeclaration.SingleLineNotAllowed">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.Arrays.ArrayDeclaration.ValueNotAligned">
-  <severity>0</severity>
- </rule>
- 
- <rule ref="Squiz.Arrays.ArrayBracketSpacing" />
- 
- <rule ref="Squiz.Classes.LowercaseClassKeywords" />
- <rule ref="Squiz.Commenting.PostStatementComment" />
- <rule ref="Squiz.ControlStructures.ForEachLoopDeclaration" />
- <!-- Disable some error messages that we already cover. --> 
- <rule ref="Squiz.ControlStructures.ForEachLoopDeclaration.SpaceAfterOpen">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.ControlStructures.ForEachLoopDeclaration.SpaceBeforeClose">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.ControlStructures.ForLoopDeclaration" />
- <!-- Disable some error messages that we already cover. --> 
- <rule ref="Squiz.ControlStructures.ForLoopDeclaration.SpacingAfterOpen">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.ControlStructures.ForLoopDeclaration.SpacingBeforeClose">
-  <severity>0</severity>
- </rule>
- 
- <rule ref="Squiz.ControlStructures.LowercaseDeclaration" />
- 
- <rule ref="Squiz.ControlStructures.SwitchDeclaration" />
- <!-- Disable some error messages that we do not want. -->
- <rule ref="Squiz.ControlStructures.SwitchDeclaration.BreakIndent">
-  <severity>0</severity>
- </rule> 
- <rule ref="Squiz.ControlStructures.SwitchDeclaration.CaseIndent">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.ControlStructures.SwitchDeclaration.CloseBraceAlign">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.ControlStructures.SwitchDeclaration.DefaultIndent">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.ControlStructures.SwitchDeclaration.DefaultNoBreak">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.ControlStructures.SwitchDeclaration.EmptyCase">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.ControlStructures.SwitchDeclaration.EmptyDefault">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.ControlStructures.SwitchDeclaration.MissingDefault">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.ControlStructures.SwitchDeclaration.SpacingAfterDefaultBreak">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.ControlStructures.SwitchDeclaration.SpacingBeforeBreak">
-  <severity>0</severity>
- </rule>
- 
- <rule ref="Squiz.CSS.ColonSpacing" />
- <rule ref="Squiz.CSS.DisallowMultipleStyleDefinitions" />
- <rule ref="Squiz.CSS.EmptyClassDefinition" />
- <rule ref="Squiz.CSS.EmptyStyleDefinition" />
- <rule ref="Squiz.CSS.SemicolonSpacing" />
- 
- <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing"/>
- <!-- Disable some error messages that we do not want. -->
- <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpaceBeforeEquals">
-  <severity>0</severity>
- </rule>
- <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpaceAfterDefault">
-  <severity>0</severity>
- </rule>
- 
- <rule ref="Squiz.PHP.LowercasePHPFunctions" />
- <rule ref="Squiz.Scope.MethodScope" />
- <rule ref="Squiz.WhiteSpace.LanguageConstructSpacing" />
- <rule ref="Squiz.WhiteSpace.OperatorSpacing" />
- <rule ref="Squiz.WhiteSpace.SemicolonSpacing" />
- 
- <!-- Ignore various version control directories. -->
- <exclude-pattern>*/.git/*</exclude-pattern>
- <exclude-pattern>*/.svn/*</exclude-pattern>
- <exclude-pattern>*/.hg/*</exclude-pattern>
- <exclude-pattern>*/.bzr/*</exclude-pattern>
+
 </ruleset>
