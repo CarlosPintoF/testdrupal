@@ -1,0 +1,6 @@
+name = test_module
+description = Test module.
+package = Custom
+core = 7.x
+files[] = test_module.module
+

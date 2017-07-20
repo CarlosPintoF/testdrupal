@@ -1,0 +1,9 @@
+<?php
+
+
+function cosa (){
+	$cosa=1;
+	if($cosa==1)
+		$cosa2=3;
+		
+}
